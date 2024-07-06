@@ -14,8 +14,8 @@ import styles from './welcome.style'
 import { icons, SIZES } from '../../../constants';
 
 
-const Welcome = () => {
-  const router = useRouter;
+const Welcome = ({ searchTerm, setSearchTerm, handleSearch}) => {
+  const router = useRouter();
   const jobTypes = [
     "Full Time", "Part Time",
     "Remote", "Freelance",
@@ -35,14 +35,14 @@ const Welcome = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=''
-            onChange={() => {}}
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
             placeholder='Search for Jobs'
           />
         </View>
         <TouchableOpacity
           style={styles.searchBtn}
-          onPress={() => {}}
+          onPress={handleSearch}
         >
           <Image
             source={icons.search}
@@ -51,7 +51,6 @@ const Welcome = () => {
           />
         </TouchableOpacity>
       </View>
-      <Text></Text>
       <View style={styles.tabContainer}>
         <FlatList
           data={jobTypes}
@@ -67,7 +66,10 @@ const Welcome = () => {
             </TouchableOpacity>
           )}
           keyExtractor={item => item}
-          contentContainerStyle={{ columnGap: SIZES.small }}
+          contentContainerStyle={{
+            columnGap: SIZES.small,
+            rowGap: SIZES.small,
+          }}
           horizontal
         />
       </View>
