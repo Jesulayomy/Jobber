@@ -15,7 +15,7 @@ const NearbyJobCard = ({ job, handleNavigate }) => {
           style={styles.logoContainer}
         >
           <Image
-            source={{ uri: job.employer_logo }}
+            source={job.employer_logo ? { uri: job.employer_logo } : require('../../../../assets/images/logo.png')}
             resizeMode='contain'
             style={styles.logoImage}
           />

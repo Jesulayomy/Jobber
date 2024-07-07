@@ -8,16 +8,8 @@ import PopularJobCard from '../../common/cards/popular/PopularJobCard';
 import useFetch from '../../../hook/useFetch';
 
 
-const Popularjobs = () => {
+const Popularjobs = ({ data, isLoading, error }) => {
   const router = useRouter();
-  const { data, isLoading, error } = useFetch(
-    'search', {
-      query: 'Node.js developer in New-York,USA',
-      page: '1',
-      num_pages: '1',
-      date_posted: 'all',
-    }
-  );
 
   return (
     <View style={styles.container}>

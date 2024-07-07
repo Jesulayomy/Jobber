@@ -14,7 +14,7 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
         style={styles.logoContainer(selectedJob, item)}
       >
         <Image
-          source={{ uri: item.employer_logo }}
+          source={item.employer_logo ? { uri: item.employer_logo } : require('../../../../assets/images/logo.png')}
           resizeMode='contain'
           style={styles.logoImage}
         />

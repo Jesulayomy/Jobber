@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-// import { RAPID_API_KEY } from '@env';
-// const rapidApiKey = RAPID_API_KEY;
 import mockData from '../utils/mockData';
+
 
 const useFetch = (endpoint, query) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const effectRan = useRef(false);
 
   const options = {
     method: 'GET',
@@ -19,44 +19,32 @@ const useFetch = (endpoint, query) => {
     }
   };
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    const response = mockData;
-    console.log('setting data');
-    try {
-      // const response = await axios.request(options);
+  useEffect(() => {
+    console.log('effect ran');
+    if (effectRan.current === true) {
+      setIsLoading(true);
       if (endpoint === 'job-details') {
-        for (const item of response.data) {
-          if (item.job_id === options.params.job_id) {
+        for (const item of mockData.data) {
+          if (item.job_id === query.params.job_id) {
             setData(item);
             break;
           }
         }
-        console.log('DATA!');
       } else {
-        setData(response.data);
+        setData(mockData.data);
       }
       setIsLoading(false);
-    } catch (error) {
-      console.error("We got error");
-      setError(error);
-      alert(error);
-    } finally {
-      console.log('fetched');
-      setIsLoading(false);
     }
-  }
-
-  useEffect(() => {
-    console.log('useEffect');
-    fetchData();
-    setIsLoading(false);
+    return () => {
+      effectRan.current = true;
+    }
   }, []);
 
   const refetch = () => {
     console.log('refetching');
     setIsLoading(true);
     fetchData();
+    setIsLoading(false);
   }
 
   return { data, isLoading, error, refetch };

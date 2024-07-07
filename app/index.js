@@ -3,11 +3,22 @@ import { View, ScrollView, SafeAreaView, Text } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { COLORS, SIZES, FONT, icons, images } from '../constants';
 import { Nearbyjobs, Popularjobs, ScreenHeaderBtn, Welcome } from '../components';
+import mockData from '../utils/mockData';
+// import useFetch from '../hook/useFetch';
 
 
 const Home = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
+  // const { data, isLoading, error } = useFetch(
+  //   'search', {
+  //     query: 'Node.js developer in New-York,USA',
+  //     page: '1',
+  //     num_pages: '1',
+  //     date_posted: 'all',
+  //   }
+  // );
+  const data = mockData.data;
 
   return (
     <SafeAreaView
@@ -37,8 +48,16 @@ const Home = () => {
               router.push(`/search/${searchTerm}`);
             }}
           />
-          <Popularjobs />
-          <Nearbyjobs />
+          <Popularjobs
+            data={data}
+            // isLoading={isLoading}
+            // error={error}
+          />
+          <Nearbyjobs
+            data={data}
+            // isLoading={isLoading}
+            // error={error}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -8,16 +8,8 @@ import NearbyJobCard from '../../common/cards/nearby/NearbyJobCard';
 import useFetch from '../../../hook/useFetch';
 
 
-const Nearbyjobs = () => {
+const Nearbyjobs = ({ data, isLoading, error }) => {
   const router = useRouter();
-  const { data, isLoading, error } = useFetch(
-    'search', {
-      query: 'Node.js developer in New-York,USA',
-      page: '1',
-      num_pages: '1',
-      date_posted: 'all',
-    }
-  );
 
   return (
     <View style={styles.container}>

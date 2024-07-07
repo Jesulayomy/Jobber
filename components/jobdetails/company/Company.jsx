@@ -10,7 +10,7 @@ const Company = ({ companyLogo, jobTitle, companyName, jobLocation }) => {
     <View style={styles.container}>
       <View style={styles.logoBox}>
         <Image
-          source={{ uri: companyLogo }}
+          source={companyLogo ? { uri: companyLogo } : require('../../../assets/images/logo.png')}
           resizeMode='contain'
           style={styles.logoImage}
         />

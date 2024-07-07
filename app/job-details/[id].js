@@ -8,7 +8,7 @@ import {
 import {
   Stack, useRouter, useGlobalSearchParams,
 } from 'expo-router';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useReducer } from 'react';
 
 import {
   Company, JobAbout, JobFooter, JobTabs,
@@ -16,7 +16,8 @@ import {
 } from '../../components';
 
 import { COLORS, SIZES, icons } from '../../constants';
-import useFetch from '../../hook/useFetch';
+import mockData from '../../utils/mockData';
+// import useFetch from '../../hook/useFetch';
 
 
 const tabs = [
@@ -28,17 +29,21 @@ const JobDetails = () => {
   const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(mockData.data.filter(item => item.job_id === params.id)[0]);
+  const error = null;
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetch();
+    setData(mockData.data.filter(item => item.job_id === params.id)[0])
     setRefreshing(false);
   }, []);
+  
 
-  const { data, isLoading, error, refetch } = useFetch(
-    'job-details',
-    { job_id: params.id }
-  );
+  // const { data, isLoading, error, refetch } = useFetch(
+  //   'job-details',
+  //   { job_id: params.id }
+  // );
 
   const displayTabContent = (activeTab, job) => {
     switch (activeTab) {
